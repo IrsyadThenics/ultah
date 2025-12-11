@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun ke-20, Nabila! ❤️</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
+
+        :root {
+            --primary-color: #ff6b6b; /* Merah Muda Cerah */
+            --secondary-color: #ffeaa7; /* Kuning Pucat */
+            --text-color: #333;
+            --bg-start: #a29bfe; /* Gradien Latar Belakang */
+            --bg-end: #fd79a8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+        }
+
+        /* Latar Belakang Gradien */
+        body {
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #greeting {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .countdown-box p {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 15px;
+        }
+
+        .countdown > div {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+
+        .countdown span {
+            display: block;
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        .countdown small {
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+
+        /* Pesan Spesial */
+        .message-area {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            transform: scale(0.8);
+            opacity: 0;
+            margin-bottom: 20px;
+        }
+        
+        /* Keyframe untuk Efek Goyangan (Peningkatan) */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) scale(1); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) scale(1.02); }
+            20%, 40%, 60%, 80% { transform: translateX(5px) scale(1.02); }
+        }
+
+        /* Efek STAMP (Pop-up) + SHAKE (Goyangan) untuk Pesan */
+        .message-area.visible {
+            opacity: 1;
+            /* Combine stamp and shake */
+            animation: stamp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, 
+                       shake 0.8s 0.6s 1; /* Jalankan shake setelah stamp (0.6s delay) */
+        }
+
+        @keyframes stamp {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .message-area h2 {
+            color: var(--primary-color);
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .message-area p {
+            line-height: 1.6;
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        #confetti-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        #confetti-button:hover {
+            background: #e74c3c;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- Desain Galeri Foto --- */
+        .photo-gallery {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            animation: fadeIn 1s ease-out;
+            max-width: 800px;
+            width: 100%;
+            /* Efek SPARKLE pada Galeri */
+            animation: sparkle 3s infinite alternate;
+        }
+
+        /* Keyframe untuk Efek Kilauan (Sparkle) */
+        @keyframes sparkle {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px var(--secondary-color); }
+            50% { box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color); }
+            100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px var(--secondary-color); }
+        }
+
+
+        .photo-gallery img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsif */
+        @media (max-width: 600px) {
+            #greeting {
+                font-size: 2em;
+            }
+            .countdown span {
+                font-size: 1.5em;
+            }
+            .countdown > div {
+                min-width: 50px;
+                padding: 8px 10px;
+            }
+            .photo-gallery img {
+                max-width: 100%;
+            }
+        }
+
+        /* --- CSS untuk Efek Confetti (Kembang Api) --- */
+        .confetti-piece {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.9;
+            z-index: 1000;
+        }
+        
+        /* --- CSS untuk Partikel Hati Melayang (Peningkatan) --- */
+        .heart-particle {
+            position: fixed;
+            font-size: 1.5em;
+            color: var(--primary-color);
+            z-index: 999;
+            pointer-events: none;
+            animation: floatUp 4s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="greeting">Selamat Ulang Tahun, Sayang!</h1>
+        
+        <div class="countdown-box">
+            <p>Menuju usia 20 tahun...</p>
+            <div id="countdown" class="countdown">
+                </div>
+        </div>
+        
+        <div id="message-area" class="message-area hidden">
+            <p>Selamat ulang tahun ke usia 20 tahun! 🎉</p>
+            <h2>Pesan Spesial Untukmu</h2>
+            <p>Halo Nabila Azzahra Prasetya, selamat ulang tahun! Semoga di usia yang baru ini semua impianmu tercapai. Kamu adalah hal terbaik yang pernah ada padaku. I Love You More! ❤️</p>
+            <p class="signature">Dari, Ibad</p>
+            <button id="confetti-button">Tampilkan Foto Kenangan Sayanggg!</button>
+        </div>
+
+        <div id="photo-gallery" class="photo-gallery hidden">
+            <img src="IMG-20251029-WA0011.jpg" alt="Foto Kenangan 1">
+            <img src="IMG-20251029-WA0014.jpg" alt="Foto Kenangan 2">
+            <img src="IMG-20251029-WA0012.jpg" alt="foto kenangan 3">
+            <img src="9a78dd8e-88ba-490a-a038-9d4d8aa80594.jpg" alt="foto kenangan 4">
+            <img src="dc1458f3-7b4f-454a-8b19-a6be46c29f6f.jpg" alt="foto kenangan 5">
+            <img src="0d3d1395-ea60-44bc-afa3-26172779eb77.jpg" alt="foto kenangan 6">
+            <img src="ca6b8eba-f503-447d-a229-ea08d306238b.jpg" alt="foto kenangan 7">
+            <img src="4ca7dffe-7381-49f6-aa7b-cff747a881ff.jpg" alt="foto kenangan 8">
+        </div>
+
+    </div>
+
+    <audio id="birthday-song" src="happy-birthday-220024.mp3" preload="auto"></audio> 
+
+    <script>
+        // --- Bagian 1: Konfigurasi Ulang Tahun ---
+        // GANTI TANGGAL INI! Atur ke tanggal ulang tahun Nabila
+        // Format: "Month Day, Year Hour:Minute:Second"
+        const birthdayDate = new Date("December 11, 2025 21:58:00").getTime(); 
+
+        const countdownElement = document.getElementById("countdown");
+        const messageArea = document.getElementById("message-area");
+        const confettiButton = document.getElementById("confetti-button");
+        const photoGallery = document.getElementById("photo-gallery");
+        const birthdaySong = document.getElementById("birthday-song");
+
+        let isExplosionDone = false; // Status untuk mencegah ledakan berulang
+        let songPlayed = false; // Status untuk mencegah lagu berulang
+
+        // --- Fungsi Partikel Hati Melayang ---
+        const launchHeartParticles = (count = 10) => {
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                heart.innerHTML = '❤️'; 
+                
+                // Posisi hati acak di bagian bawah layar
+                heart.style.left = Math.random() * 80 + 10 + 'vw';
+                heart.style.bottom = -10 + 'px'; 
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // 3-5 detik
+                heart.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                document.body.appendChild(heart);
+                
+                // Hapus partikel setelah selesai animasi
+                setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) * 1000) + 1000);
+            }
+        }
+        
+        // --- Fungsi Confetti Kembang Api ---
+        const launchConfettiBurst = (count = 100) => {
+            const confettiColors = ['#ff6b6b', '#ffeaa7', '#a29bfe', '#fd79a8', '#00cec9', '#ffffff'];
+            const styleSheet = document.createElement('style');
+            document.head.appendChild(styleSheet);
+
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('confetti-piece');
+                piece.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                piece.style.width = Math.random() * 10 + 5 + 'px';
+                piece.style.height = piece.style.width;
+                
+                // Posisi dan Animasi Acak
+                const startX = Math.random() * 100 + 'vw';
+                const endX = Math.random() * 40 - 20; // -20vw sampai 20vw
+                const duration = Math.random() * 2 + 3; // 3 hingga 5 detik
+                const rotation = Math.random() * 720 + 360; 
+                
+                piece.style.left = startX;
+                piece.style.top = -20 + 'px';
+                piece.style.animationDuration = duration + 's';
+                
+                // Membuat Keyframe unik secara dinamis
+                const keyframes = `@keyframes fall${i} {
+                    0% { 
+                        transform: translate(0, 0) rotate(0deg); 
+                        opacity: 1;
+                    }
+                    100% { 
+                        transform: translate(${endX}vw, 100vh) rotate(${rotation}deg); 
+                        opacity: 0;
+                    }
+                }`;
+                
+                // Menambahkan Keyframe ke stylesheet
+                styleSheet.sheet.insertRule(keyframes, styleSheet.sheet.cssRules.length);
+                piece.style.animationName = `fall${i}`;
+
+                document.body.appendChild(piece);
+
+                setTimeout(() => {
+                    piece.remove();
+                    // Membersihkan stylesheet setelah selesai
+                    if (i === count - 1) {
+                         styleSheet.remove(); 
+                    }
+                }, duration * 1000 + 500); 
+            }
+        }
+
+
+        // Fungsi untuk menghitung dan menampilkan hitungan mundur
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = birthdayDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Tampilkan hasilnya
+            countdownElement.innerHTML = `
+                <div><span>${days}</span><small>Hari</small></div>
+                <div><span>${hours}</span><small>Jam</small></div>
+                <div><span>${minutes}</span><small>Menit</small></div>
+                <div><span>${seconds}</span><small>Detik</small></div>
+            `;
+
+            // Ketika hitungan mundur selesai
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".countdown-box").classList.add("hidden");
+                
+                // 1. Putar Lagu Ulang Tahun (jika ada file)
+                if (birthdaySong && !songPlayed) {
+                    birthdaySong.play();
+                    birthdaySong.volume = 0.5; 
+                    songPlayed = true;
+                }
+
+                // 2. Tampilkan area pesan dengan efek STAMP + SHAKE
+                messageArea.classList.remove("hidden");
+                setTimeout(() => {
+                    messageArea.classList.add("visible");
+                    
+                    // 3. Otomatis tampilkan ledakan konfeti dan hati
+                    launchConfettiBurst(100); 
+                    launchHeartParticles(20);
+                }, 100); 
+            }
+        }
+
+        // Mulai hitungan mundur (setiap 1 detik)
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Panggil sekali untuk memastikan tampilan awal
+        updateCountdown();
+
+
+        // Event Listener untuk tombol kembang api
+        confettiButton.addEventListener('click', () => {
+            // Pastikan hanya berjalan sekali
+            if (isExplosionDone) return;
+            isExplosionDone = true;
+
+            // 1. Tampilkan Galeri Foto (Langsung terlihat)
+            photoGallery.classList.remove('hidden');
+            
+            // 2. Ledakan Konfeti Berturut-turut (Burst Effect 3x)
+            launchConfettiBurst(150); 
+            setTimeout(() => {
+                launchConfettiBurst(100); 
+            }, 800); 
+            setTimeout(() => {
+                launchConfettiBurst(50); 
+            }, 1600); 
+
+            // 3. Tampilkan Partikel Hati
+            launchHeartParticles(30);
+
+            // 4. Sembunyikan Tombol
+            confettiButton.style.display = 'none'; 
+        });
+    </script>
+</body>
+</html>
