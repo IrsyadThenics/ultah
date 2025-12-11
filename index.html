@@ -257,9 +257,10 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="greeting">Tungguin waktunya</h1>
+        <h1 id="greeting">Selamat Ulang Tahun, Sayang!</h1>
         
         <div class="countdown-box">
+            <p>Menuju usia 20 tahun...</p>
             <div id="countdown" class="countdown">
                 </div>
         </div>
@@ -290,8 +291,8 @@
     <script>
         // --- Bagian 1: Konfigurasi Ulang Tahun ---
         // GANTI TANGGAL INI! Atur ke tanggal ulang tahun Nabila
-        // Format: "Month Day, Year Hour:Minute:Second"
-        const birthdayDate = new Date("December 13, 2025 00:00:00").getTime(); 
+        // Waktu saat ini adalah 2025-12-11 22:42:49 WIB. Atur waktu beberapa menit ke depan untuk uji coba.
+        const birthdayDate = new Date("December 11, 2025 22:45:00").getTime(); 
 
         const countdownElement = document.getElementById("countdown");
         const messageArea = document.getElementById("message-area");
@@ -299,8 +300,8 @@
         const photoGallery = document.getElementById("photo-gallery");
         const birthdaySong = document.getElementById("birthday-song");
 
-        let isExplosionDone = false; // Status untuk mencegah ledakan berulang
-        let songPlayed = false; // Status untuk mencegah lagu berulang
+        let isExplosionDone = false;
+        let songPlayed = false;
 
         // --- Fungsi Partikel Hati Melayang ---
         const launchHeartParticles = (count = 10) => {
@@ -309,15 +310,13 @@
                 heart.classList.add('heart-particle');
                 heart.innerHTML = '❤️'; 
                 
-                // Posisi hati acak di bagian bawah layar
                 heart.style.left = Math.random() * 80 + 10 + 'vw';
                 heart.style.bottom = -10 + 'px'; 
-                heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // 3-5 detik
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
                 heart.style.animationDelay = Math.random() * 0.5 + 's';
                 
                 document.body.appendChild(heart);
                 
-                // Hapus partikel setelah selesai animasi
                 setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) * 1000) + 1000);
             }
         }
@@ -335,17 +334,15 @@
                 piece.style.width = Math.random() * 10 + 5 + 'px';
                 piece.style.height = piece.style.width;
                 
-                // Posisi dan Animasi Acak
                 const startX = Math.random() * 100 + 'vw';
-                const endX = Math.random() * 40 - 20; // -20vw sampai 20vw
-                const duration = Math.random() * 2 + 3; // 3 hingga 5 detik
+                const endX = Math.random() * 40 - 20;
+                const duration = Math.random() * 2 + 3;
                 const rotation = Math.random() * 720 + 360; 
                 
                 piece.style.left = startX;
                 piece.style.top = -20 + 'px';
                 piece.style.animationDuration = duration + 's';
                 
-                // Membuat Keyframe unik secara dinamis
                 const keyframes = `@keyframes fall${i} {
                     0% { 
                         transform: translate(0, 0) rotate(0deg); 
@@ -357,7 +354,6 @@
                     }
                 }`;
                 
-                // Menambahkan Keyframe ke stylesheet
                 styleSheet.sheet.insertRule(keyframes, styleSheet.sheet.cssRules.length);
                 piece.style.animationName = `fall${i}`;
 
@@ -365,11 +361,24 @@
 
                 setTimeout(() => {
                     piece.remove();
-                    // Membersihkan stylesheet setelah selesai
                     if (i === count - 1) {
                          styleSheet.remove(); 
                     }
                 }, duration * 1000 + 500); 
+            }
+        }
+        
+        // Fungsi untuk memutar musik (dibuat terpisah agar bisa dipanggil oleh event listener)
+        const playMusic = () => {
+            if (birthdaySong && !songPlayed) {
+                // Mencoba memutar, menangani jika browser menolak (karena belum ada interaksi)
+                birthdaySong.play().then(() => {
+                    birthdaySong.volume = 0.5; 
+                    songPlayed = true;
+                }).catch(error => {
+                    // Jika ditolak, musik akan diputar saat tombol diklik (di event listener)
+                    console.log("Autoplay ditolak. Musik akan diputar saat interaksi pertama.");
+                });
             }
         }
 
@@ -397,21 +406,17 @@
                 clearInterval(countdownInterval);
                 document.querySelector(".countdown-box").classList.add("hidden");
                 
-                // 1. Putar Lagu Ulang Tahun (jika ada file)
-                if (birthdaySong && !songPlayed) {
-                    birthdaySong.play();
-                    birthdaySong.volume = 0.5; 
-                    songPlayed = true;
-                }
-
-                // 2. Tampilkan area pesan dengan efek STAMP + SHAKE
+                // 1. Tampilkan area pesan dengan efek STAMP + SHAKE
                 messageArea.classList.remove("hidden");
                 setTimeout(() => {
                     messageArea.classList.add("visible");
                     
-                    // 3. Otomatis tampilkan ledakan konfeti dan hati
+                    // 2. Ledakan visual awal
                     launchConfettiBurst(100); 
                     launchHeartParticles(20);
+                    
+                    // 3. Coba putar musik. (JANGAN HAPUS, agar Nabila bisa langsung dengar di beberapa browser)
+                    playMusic(); 
                 }, 100); 
             }
         }
@@ -423,13 +428,16 @@
         updateCountdown();
 
 
-        // Event Listener untuk tombol kembang api
+        // Event Listener untuk tombol kembang api (JAMINAN MUSIK)
         confettiButton.addEventListener('click', () => {
             // Pastikan hanya berjalan sekali
             if (isExplosionDone) return;
             isExplosionDone = true;
 
-            // 1. Tampilkan Galeri Foto (Langsung terlihat)
+            // ** SOLUSI AUDIO TERBAIK: Putar musik di sini karena ini adalah interaksi pengguna! **
+            playMusic();
+            
+            // 1. Tampilkan Galeri Foto 
             photoGallery.classList.remove('hidden');
             
             // 2. Ledakan Konfeti Berturut-turut (Burst Effect 3x)
